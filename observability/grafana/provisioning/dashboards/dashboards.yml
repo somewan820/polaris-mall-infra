@@ -1,0 +1,11 @@
+apiVersion: 1
+
+providers:
+  - name: Polaris Infra
+    orgId: 1
+    folder: Polaris Infra
+    type: file
+    disableDeletion: false
+    editable: true
+    options:
+      path: /var/lib/grafana/dashboards

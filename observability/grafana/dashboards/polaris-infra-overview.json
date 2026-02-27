@@ -1,0 +1,98 @@
+{
+  "id": null,
+  "uid": "polaris-infra-overview",
+  "title": "Polaris Infra Overview",
+  "timezone": "browser",
+  "schemaVersion": 39,
+  "version": 1,
+  "refresh": "10s",
+  "panels": [
+    {
+      "type": "stat",
+      "title": "Checkout Probe Success",
+      "datasource": "Prometheus",
+      "targets": [
+        {
+          "expr": "probe_success{job=\"checkout-probe\"}",
+          "refId": "A"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              { "color": "red", "value": 0 },
+              { "color": "green", "value": 1 }
+            ]
+          },
+          "mappings": []
+        },
+        "overrides": []
+      },
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "justifyMode": "center",
+        "orientation": "horizontal",
+        "reduceOptions": {
+          "calcs": ["lastNotNull"],
+          "fields": "",
+          "values": false
+        },
+        "textMode": "value"
+      },
+      "gridPos": { "h": 6, "w": 6, "x": 0, "y": 0 }
+    },
+    {
+      "type": "timeseries",
+      "title": "Gateway Requests / sec",
+      "datasource": "Prometheus",
+      "targets": [
+        {
+          "expr": "rate(nginx_http_requests_total[1m])",
+          "refId": "A"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "color": { "mode": "palette-classic" },
+          "unit": "reqps"
+        },
+        "overrides": []
+      },
+      "options": {
+        "legend": {
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": { "mode": "single" }
+      },
+      "gridPos": { "h": 9, "w": 18, "x": 6, "y": 0 }
+    },
+    {
+      "type": "logs",
+      "title": "Gateway Access Logs",
+      "datasource": "Loki",
+      "targets": [
+        {
+          "expr": "{job=\"gateway\"}",
+          "refId": "A"
+        }
+      ],
+      "options": {
+        "showTime": true,
+        "showLabels": true,
+        "sortOrder": "Descending",
+        "wrapLogMessage": true
+      },
+      "gridPos": { "h": 10, "w": 24, "x": 0, "y": 6 }
+    }
+  ],
+  "templating": { "list": [] },
+  "annotations": { "list": [] },
+  "time": { "from": "now-1h", "to": "now" },
+  "timepicker": {},
+  "editable": true
+}

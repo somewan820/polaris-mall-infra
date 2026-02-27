@@ -70,9 +70,9 @@
       "Run deployment to dev environment from main branch"
     ],
     "passes": true,
-    "notes": "deploy-dev \u4ec5\u5728 main push \u4e14 gate \u6210\u529f\u540e\u6267\u884c\uff0cdocs/ci-cd.md \u63d0\u4f9b\u5206\u652f\u4fdd\u62a4\u5fc5\u8fc7\u68c0\u67e5\u6e05\u5355\u3002",
     "evidence": "\u5df2\u4e3a infra/api/web \u4e09\u4ed3\u65b0\u589e CI/CD gate \u5de5\u4f5c\u6d41\uff0c\u4e14\u672c\u5730\u5b8c\u6210 go test\u3001\u524d\u7aef\u6d4b\u8bd5\u3001\u8fc1\u79fb\u9a8c\u8bc1\u4e0e\u961f\u5217\u9a8c\u8bc1\uff1b\u5931\u8d25\u5373\u963b\u65ad\u90e8\u7f72\u3002",
-    "updated_at": "2026-02-27T09:31:15Z"
+    "updated_at": "2026-02-27T09:31:15Z",
+    "notes": "deploy-dev \u4ec5\u5728 main push \u4e14 gate \u6210\u529f\u540e\u6267\u884c\uff0cdocs/ci-cd.md \u63d0\u4f9b\u5206\u652f\u4fdd\u62a4\u5fc5\u8fc7\u68c0\u67e5\u6e05\u5355\u3002"
   },
   {
     "id": "I006",
@@ -84,8 +84,10 @@
       "Expose service metrics and dashboard",
       "Create alert rule for critical checkout failures"
     ],
-    "passes": false,
-    "notes": "Acceptance: one dashboard and one critical alert are working. Dependencies: I003. Repo: polaris-mall-infra."
+    "passes": true,
+    "notes": "\u9a8c\u6536\u7ed3\u679c\uff1aPrometheus\u89c4\u5219\u542b CriticalCheckoutProbeFailed\uff0cGrafana/Loki\u5065\u5eb7\u68c0\u67e5\u901a\u8fc7\uff0cnginx -t\u3001migrate_validate_dev.ps1\u3001queue_validate_flow_dev.ps1 \u5747\u901a\u8fc7\u3002",
+    "evidence": "\u5df2\u5efa\u7acb\u53ef\u89c2\u6d4b\u57fa\u7ebf\uff1a\u7f51\u5173JSON\u65e5\u5fd7\u4e0etrace/correlation\u4f20\u9012\u3001Prometheus+Grafana+Loki+Exporter \u7ec4\u5408\u3001\u9884\u7f6e\u4eea\u8868\u76d8\u4e0e\u5173\u952e\u544a\u8b66\u89c4\u5219\uff0cobservability_validate_dev.ps1 \u6267\u884c\u901a\u8fc7\u3002",
+    "updated_at": "2026-02-27T12:36:27Z"
   },
   {
     "id": "I007",

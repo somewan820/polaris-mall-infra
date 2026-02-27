@@ -46,6 +46,14 @@ Language: English | [中文](README.zh-CN.md)
   - required-job gate that blocks deploy on validation failures
   - deployment job only for `push` to `main`
   - branch protection checklist documentation for all repos
+- I006 baseline:
+  - shared JSON gateway log format with request/trace/correlation IDs
+  - Prometheus + Grafana + Loki + exporters baseline in dev compose
+  - dashboard provisioning (`Polaris Infra Overview`)
+  - critical checkout probe alert rule (`CriticalCheckoutProbeFailed`)
+  - observability validation scripts:
+    - `scripts/observability_validate_dev.ps1`
+    - `scripts/observability_validate_dev.sh`
 
 ## Local Bootstrap
 
@@ -64,6 +72,12 @@ docker compose -f .\docker-compose.dev.yml --env-file .\.env up -d
 - Postgres: `127.0.0.1:5432`
 - Redis: `127.0.0.1:6379`
 - Gateway: `127.0.0.1:8080`
+- Prometheus: `127.0.0.1:9090`
+- Alertmanager: `127.0.0.1:9093`
+- Grafana: `127.0.0.1:3000`
+- Loki: `127.0.0.1:3100`
+- Nginx Exporter: `127.0.0.1:9113`
+- Blackbox Exporter: `127.0.0.1:9115`
 
 Gateway routes:
 
@@ -139,3 +153,15 @@ powershell -ExecutionPolicy Bypass -File ".\scripts\queue_validate_flow_dev.ps1"
 
 - workflow file: `.github/workflows/infra-ci-cd.yml`
 - detailed policy and branch protection checklist: `docs/ci-cd.md`
+
+## Observability Baseline (I006)
+
+- docs: `docs/observability.md`
+- dashboard file: `observability/grafana/dashboards/polaris-infra-overview.json`
+- alert rules: `observability/prometheus/alert.rules.yml`
+
+Validate observability stack in dev:
+
+```powershell
+powershell -ExecutionPolicy Bypass -File ".\scripts\observability_validate_dev.ps1"
+```

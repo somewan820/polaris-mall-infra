@@ -22,3 +22,7 @@
 - type: feature_pass
 - note: Marked I005 as passing. Evidence: 已为 infra/api/web 三仓新增 CI/CD gate 工作流，且本地完成 go test、前端测试、迁移验证与队列验证；失败即阻断部署。
 
+## 2026-02-27T12:36:27Z
+- type: feature_pass
+- note: Marked I006 as passing. Evidence: 已建立可观测基线：网关JSON日志与trace/correlation传递、Prometheus+Grafana+Loki+Exporter 组合、预置仪表盘与关键告警规则，observability_validate_dev.ps1 执行通过。
+

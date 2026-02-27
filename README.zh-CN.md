@@ -46,6 +46,14 @@
   - gate 任务阻断失败校验，防止部署继续
   - 仅 `main` 分支 push 触发部署任务
   - 三仓分支保护与必过检查清单文档
+- I006 基线：
+  - 网关统一 JSON 日志格式，包含 request/trace/correlation ID
+  - Dev 组合新增 Prometheus + Grafana + Loki + exporters
+  - 预置仪表盘 `Polaris Infra Overview`
+  - 关键告警规则 `CriticalCheckoutProbeFailed`
+  - 可观测验证脚本：
+    - `scripts/observability_validate_dev.ps1`
+    - `scripts/observability_validate_dev.sh`
 
 ## 本地初始化
 
@@ -64,6 +72,12 @@ docker compose -f .\docker-compose.dev.yml --env-file .\.env up -d
 - Postgres: `127.0.0.1:5432`
 - Redis: `127.0.0.1:6379`
 - Gateway: `127.0.0.1:8080`
+- Prometheus: `127.0.0.1:9090`
+- Alertmanager: `127.0.0.1:9093`
+- Grafana: `127.0.0.1:3000`
+- Loki: `127.0.0.1:3100`
+- Nginx Exporter: `127.0.0.1:9113`
+- Blackbox Exporter: `127.0.0.1:9115`
 
 网关路由：
 
@@ -132,3 +146,15 @@ powershell -ExecutionPolicy Bypass -File ".\scripts\queue_validate_flow_dev.ps1"
 
 - 工作流文件：`.github/workflows/infra-ci-cd.yml`
 - 规则与分支保护清单：`docs/ci-cd.md`
+
+## 可观测基线（I006）
+
+- 文档：`docs/observability.md`
+- 仪表盘文件：`observability/grafana/dashboards/polaris-infra-overview.json`
+- 告警规则：`observability/prometheus/alert.rules.yml`
+
+验证可观测栈：
+
+```powershell
+powershell -ExecutionPolicy Bypass -File ".\scripts\observability_validate_dev.ps1"
+```

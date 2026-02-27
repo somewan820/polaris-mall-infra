@@ -1,0 +1,19 @@
+modules:
+  http_health:
+    prober: http
+    timeout: 5s
+    http:
+      method: GET
+      valid_status_codes: [200]
+      preferred_ip_protocol: "ip4"
+
+  checkout_probe:
+    prober: http
+    timeout: 5s
+    http:
+      method: POST
+      headers:
+        Content-Type: application/json
+      body: '{"shipping_cents":0,"discount_cents":0,"coupon_code":""}'
+      valid_status_codes: [400, 401]
+      preferred_ip_protocol: "ip4"
