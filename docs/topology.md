@@ -14,6 +14,17 @@ This document defines the local runtime topology used during the first MVP build
 | api | local process | `9000` | Auth and domain API service |
 | web | local static server | `5173` | Storefront shell |
 
+## Async Runtime (I004)
+
+- Queue runtime uses Redis Streams in dev.
+- Streams:
+  - `polaris.events.order`
+  - `polaris.events.payment`
+- Consumer group:
+  - `polaris-workers`
+- Retention:
+  - per stream `MAXLEN ~ 10000`
+
 ## Request Paths
 
 - Browser -> `http://127.0.0.1:8080/` -> web (`8s` read timeout)

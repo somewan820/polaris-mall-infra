@@ -37,6 +37,10 @@
   - `/api/v1/*` 与 `/api/v1/admin/*` 转发 Authorization
   - 支付回调入口：`POST /api/v1/payments/callback/mockpay`
   - Web/API/回调流量按路由设置超时策略
+- I004 基线：
+  - 基于 Redis Stream 的订单/支付事件主题
+  - Dev 环境 worker 消费组运行脚本
+  - 发布并消费至少一条事件的验证脚本
 
 ## 本地初始化
 
@@ -82,4 +86,39 @@ powershell -ExecutionPolicy Bypass -File ".\scripts\migrate_dev.ps1" -Rollback
 
 ```powershell
 powershell -ExecutionPolicy Bypass -File ".\scripts\migrate_validate_dev.ps1"
+```
+
+## 异步事件基线（I004）
+
+主题：
+
+- `polaris.events.order`
+- `polaris.events.payment`
+
+消费组：
+
+- `polaris-workers`
+
+初始化主题与消费组：
+
+```powershell
+powershell -ExecutionPolicy Bypass -File ".\scripts\queue_bootstrap_dev.ps1"
+```
+
+发布示例事件：
+
+```powershell
+powershell -ExecutionPolicy Bypass -File ".\scripts\queue_publish_sample_dev.ps1" -Topic order
+```
+
+执行一次 worker 消费：
+
+```powershell
+powershell -ExecutionPolicy Bypass -File ".\scripts\queue_worker_once_dev.ps1" -Topic order
+```
+
+验证发布与消费链路：
+
+```powershell
+powershell -ExecutionPolicy Bypass -File ".\scripts\queue_validate_flow_dev.ps1"
 ```

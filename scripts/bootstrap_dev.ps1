@@ -19,12 +19,17 @@ $requiredFiles = @(
   (Join-Path $repoRoot 'docker-compose.dev.yml'),
   (Join-Path $repoRoot 'gateway/nginx.dev.conf'),
   (Join-Path $repoRoot 'docs/topology.md'),
+  (Join-Path $repoRoot 'docs/async-events.md'),
   (Join-Path $repoRoot 'migrations/0001_initial.sql'),
   (Join-Path $repoRoot 'migrations/rollback/0001_initial.down.sql'),
   (Join-Path $repoRoot 'migrations/0002_fulfillment_audit.sql'),
   (Join-Path $repoRoot 'migrations/rollback/0002_fulfillment_audit.down.sql'),
   (Join-Path $repoRoot 'scripts/migrate_dev.ps1'),
-  (Join-Path $repoRoot 'scripts/migrate_validate_dev.ps1')
+  (Join-Path $repoRoot 'scripts/migrate_validate_dev.ps1'),
+  (Join-Path $repoRoot 'scripts/queue_bootstrap_dev.ps1'),
+  (Join-Path $repoRoot 'scripts/queue_publish_sample_dev.ps1'),
+  (Join-Path $repoRoot 'scripts/queue_worker_once_dev.ps1'),
+  (Join-Path $repoRoot 'scripts/queue_validate_flow_dev.ps1')
 )
 
 foreach ($file in $requiredFiles) {

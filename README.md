@@ -37,6 +37,10 @@ Language: English | [中文](README.zh-CN.md)
   - Authorization forwarding for `/api/v1/*` and `/api/v1/admin/*`
   - callback ingress rule: `POST /api/v1/payments/callback/mockpay`
   - route-level timeout policies for web/api/callback traffic
+- I004 baseline:
+  - redis stream topics for order/payment events
+  - worker consumer-group runtime scripts for dev
+  - publish and consume validation script for at-least-one event flow
 
 ## Local Bootstrap
 
@@ -89,4 +93,39 @@ Validate migration + rollback in disposable runtime:
 
 ```powershell
 powershell -ExecutionPolicy Bypass -File ".\scripts\migrate_validate_dev.ps1"
+```
+
+## Async Events Baseline (I004)
+
+Topics:
+
+- `polaris.events.order`
+- `polaris.events.payment`
+
+Consumer group:
+
+- `polaris-workers`
+
+Bootstrap topics and group:
+
+```powershell
+powershell -ExecutionPolicy Bypass -File ".\scripts\queue_bootstrap_dev.ps1"
+```
+
+Publish sample event:
+
+```powershell
+powershell -ExecutionPolicy Bypass -File ".\scripts\queue_publish_sample_dev.ps1" -Topic order
+```
+
+Run one worker consume:
+
+```powershell
+powershell -ExecutionPolicy Bypass -File ".\scripts\queue_worker_once_dev.ps1" -Topic order
+```
+
+Validate end-to-end publish and consume:
+
+```powershell
+powershell -ExecutionPolicy Bypass -File ".\scripts\queue_validate_flow_dev.ps1"
 ```

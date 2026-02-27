@@ -40,9 +40,9 @@
       "Validate payment callback ingress route"
     ],
     "passes": true,
-    "notes": "\u652f\u4ed8\u56de\u8c03\u5165\u53e3\u9650\u5b9a POST\uff0cadmin \u8def\u7531\u4e0e\u4e1a\u52a1\u8def\u7531\u5206\u522b\u8bbe\u7f6e 15s/10s \u8d85\u65f6\uff0cWeb \u8def\u7531 8s\u3002",
     "evidence": "\u7f51\u5173\u8def\u7531\u6309 admin/\u4e1a\u52a1 API/\u652f\u4ed8\u56de\u8c03\u62c6\u5206\u5e76\u5b8c\u6210\u9274\u6743\u5934\u4e0e\u8d85\u65f6\u7b56\u7565\uff1bnginx -t \u901a\u8fc7\uff0c\u56de\u8c03\u63a2\u6d4b\u7ed3\u679c POST=502(\u8f6c\u53d1\u547d\u4e2d)/GET=403(\u65b9\u6cd5\u53d7\u9650)\u3002",
-    "updated_at": "2026-02-27T09:10:56Z"
+    "updated_at": "2026-02-27T09:10:56Z",
+    "notes": "\u652f\u4ed8\u56de\u8c03\u5165\u53e3\u9650\u5b9a POST\uff0cadmin \u8def\u7531\u4e0e\u4e1a\u52a1\u8def\u7531\u5206\u522b\u8bbe\u7f6e 15s/10s \u8d85\u65f6\uff0cWeb \u8def\u7531 8s\u3002"
   },
   {
     "id": "I004",
@@ -54,8 +54,10 @@
       "Provision queue or stream runtime in non-prod",
       "Publish and consume a sample order event"
     ],
-    "passes": false,
-    "notes": "Acceptance: at-least-one event flow validated. Dependencies: I001. Repo: polaris-mall-infra."
+    "passes": true,
+    "notes": "\u4e3b\u9898 polaris.events.order / polaris.events.payment\uff0c\u4fdd\u7559\u7b56\u7565 MAXLEN~10000\uff0c\u6d88\u8d39\u7ec4\u793a\u4f8b polaris-workers\u3002",
+    "evidence": "\u5df2\u5efa\u7acb\u8ba2\u5355/\u652f\u4ed8 Redis Stream \u4e3b\u9898\u4e0e worker \u6d88\u8d39\u811a\u672c\uff0c\u6267\u884c queue_validate_flow_dev.ps1 \u53d1\u5e03\u5e76\u6d88\u8d39\u4e8b\u4ef6\u901a\u8fc7\u3002",
+    "updated_at": "2026-02-27T09:27:02Z"
   },
   {
     "id": "I005",
