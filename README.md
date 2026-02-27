@@ -41,6 +41,11 @@ Language: English | [中文](README.zh-CN.md)
   - redis stream topics for order/payment events
   - worker consumer-group runtime scripts for dev
   - publish and consume validation script for at-least-one event flow
+- I005 baseline:
+  - GitHub Actions CI/CD gate workflow for infra
+  - required-job gate that blocks deploy on validation failures
+  - deployment job only for `push` to `main`
+  - branch protection checklist documentation for all repos
 
 ## Local Bootstrap
 
@@ -129,3 +134,8 @@ Validate end-to-end publish and consume:
 ```powershell
 powershell -ExecutionPolicy Bypass -File ".\scripts\queue_validate_flow_dev.ps1"
 ```
+
+## CI/CD Baseline (I005)
+
+- workflow file: `.github/workflows/infra-ci-cd.yml`
+- detailed policy and branch protection checklist: `docs/ci-cd.md`

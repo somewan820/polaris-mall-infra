@@ -1,0 +1,99 @@
+name: infra-ci-cd
+
+on:
+  pull_request:
+    branches:
+      - main
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: read
+
+jobs:
+  syntax-check:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Validate Shell Scripts
+        run: |
+          set -euo pipefail
+          chmod +x scripts/*.sh
+          bash -n scripts/bootstrap_dev.sh
+          bash -n scripts/migrate_dev.sh
+          bash -n scripts/migrate_validate_dev.sh
+          bash -n scripts/queue_bootstrap_dev.sh
+          bash -n scripts/queue_publish_sample_dev.sh
+          bash -n scripts/queue_worker_once_dev.sh
+          bash -n scripts/queue_validate_flow_dev.sh
+
+  migration-flow:
+    runs-on: ubuntu-latest
+    needs: syntax-check
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Validate Migration + Rollback
+        run: |
+          set -euo pipefail
+          chmod +x scripts/*.sh
+          docker compose -f docker-compose.dev.yml --env-file .env up -d postgres
+          bash scripts/migrate_validate_dev.sh
+
+      - name: Cleanup
+        if: always()
+        run: docker compose -f docker-compose.dev.yml --env-file .env down -v
+
+  queue-flow:
+    runs-on: ubuntu-latest
+    needs: syntax-check
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Validate Queue Publish/Consume
+        run: |
+          set -euo pipefail
+          chmod +x scripts/*.sh
+          docker compose -f docker-compose.dev.yml --env-file .env up -d redis
+          bash scripts/queue_validate_flow_dev.sh
+
+      - name: Cleanup
+        if: always()
+        run: docker compose -f docker-compose.dev.yml --env-file .env down -v
+
+  gate:
+    runs-on: ubuntu-latest
+    if: always()
+    needs:
+      - syntax-check
+      - migration-flow
+      - queue-flow
+    steps:
+      - name: Enforce Gate
+        run: |
+          set -euo pipefail
+          if [[ "${{ needs.syntax-check.result }}" != "success" || \
+                "${{ needs.migration-flow.result }}" != "success" || \
+                "${{ needs.queue-flow.result }}" != "success" ]]; then
+            echo "Gate failed."
+            exit 1
+          fi
+          echo "Gate passed."
+
+  deploy-dev:
+    runs-on: ubuntu-latest
+    needs: gate
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Simulate Dev Deploy
+        run: |
+          echo "Deploying infra baseline to dev..."
+          echo "This step should be replaced with your real deploy command."

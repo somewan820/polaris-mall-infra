@@ -41,6 +41,11 @@
   - 基于 Redis Stream 的订单/支付事件主题
   - Dev 环境 worker 消费组运行脚本
   - 发布并消费至少一条事件的验证脚本
+- I005 基线：
+  - Infra 仓库 GitHub Actions CI/CD gate 工作流
+  - gate 任务阻断失败校验，防止部署继续
+  - 仅 `main` 分支 push 触发部署任务
+  - 三仓分支保护与必过检查清单文档
 
 ## 本地初始化
 
@@ -122,3 +127,8 @@ powershell -ExecutionPolicy Bypass -File ".\scripts\queue_worker_once_dev.ps1" -
 ```powershell
 powershell -ExecutionPolicy Bypass -File ".\scripts\queue_validate_flow_dev.ps1"
 ```
+
+## CI/CD 基线（I005）
+
+- 工作流文件：`.github/workflows/infra-ci-cd.yml`
+- 规则与分支保护清单：`docs/ci-cd.md`

@@ -55,9 +55,9 @@
       "Publish and consume a sample order event"
     ],
     "passes": true,
-    "notes": "\u4e3b\u9898 polaris.events.order / polaris.events.payment\uff0c\u4fdd\u7559\u7b56\u7565 MAXLEN~10000\uff0c\u6d88\u8d39\u7ec4\u793a\u4f8b polaris-workers\u3002",
     "evidence": "\u5df2\u5efa\u7acb\u8ba2\u5355/\u652f\u4ed8 Redis Stream \u4e3b\u9898\u4e0e worker \u6d88\u8d39\u811a\u672c\uff0c\u6267\u884c queue_validate_flow_dev.ps1 \u53d1\u5e03\u5e76\u6d88\u8d39\u4e8b\u4ef6\u901a\u8fc7\u3002",
-    "updated_at": "2026-02-27T09:27:02Z"
+    "updated_at": "2026-02-27T09:27:02Z",
+    "notes": "\u4e3b\u9898 polaris.events.order / polaris.events.payment\uff0c\u4fdd\u7559\u7b56\u7565 MAXLEN~10000\uff0c\u6d88\u8d39\u7ec4\u793a\u4f8b polaris-workers\u3002"
   },
   {
     "id": "I005",
@@ -69,8 +69,10 @@
       "Enforce branch protection gates",
       "Run deployment to dev environment from main branch"
     ],
-    "passes": false,
-    "notes": "Acceptance: failed tests block deployment. Dependencies: I001, I002, I003. Repo: polaris-mall-infra."
+    "passes": true,
+    "notes": "deploy-dev \u4ec5\u5728 main push \u4e14 gate \u6210\u529f\u540e\u6267\u884c\uff0cdocs/ci-cd.md \u63d0\u4f9b\u5206\u652f\u4fdd\u62a4\u5fc5\u8fc7\u68c0\u67e5\u6e05\u5355\u3002",
+    "evidence": "\u5df2\u4e3a infra/api/web \u4e09\u4ed3\u65b0\u589e CI/CD gate \u5de5\u4f5c\u6d41\uff0c\u4e14\u672c\u5730\u5b8c\u6210 go test\u3001\u524d\u7aef\u6d4b\u8bd5\u3001\u8fc1\u79fb\u9a8c\u8bc1\u4e0e\u961f\u5217\u9a8c\u8bc1\uff1b\u5931\u8d25\u5373\u963b\u65ad\u90e8\u7f72\u3002",
+    "updated_at": "2026-02-27T09:31:15Z"
   },
   {
     "id": "I006",

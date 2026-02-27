@@ -22,6 +22,7 @@ for file in \
   "${repo_root}/gateway/nginx.dev.conf" \
   "${repo_root}/docs/topology.md" \
   "${repo_root}/docs/async-events.md" \
+  "${repo_root}/docs/ci-cd.md" \
   "${repo_root}/migrations/0001_initial.sql" \
   "${repo_root}/migrations/rollback/0001_initial.down.sql" \
   "${repo_root}/migrations/0002_fulfillment_audit.sql" \
@@ -31,7 +32,8 @@ for file in \
   "${repo_root}/scripts/queue_bootstrap_dev.sh" \
   "${repo_root}/scripts/queue_publish_sample_dev.sh" \
   "${repo_root}/scripts/queue_worker_once_dev.sh" \
-  "${repo_root}/scripts/queue_validate_flow_dev.sh"
+  "${repo_root}/scripts/queue_validate_flow_dev.sh" \
+  "${repo_root}/.github/workflows/infra-ci-cd.yml"
 do
   if [[ ! -f "${file}" ]]; then
     echo "missing required file: ${file}" >&2
