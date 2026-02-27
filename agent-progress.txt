@@ -1,0 +1,8 @@
+## 2026-02-27T05:19:12Z
+- type: init
+- note: Initialized harness for polaris-mall-infra
+
+## 2026-02-27T05:42:55Z
+- type: feature_pass
+- note: Marked I001 as passing. Evidence: Ran scripts/bootstrap_dev.ps1; .env created; topology and compose files validated.
+

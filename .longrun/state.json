@@ -1,0 +1,8 @@
+{
+  "project_name": "polaris-mall-infra", 
+  "goal": "Deliver infrastructure baseline for a three-repo ecommerce system", 
+  "smoke_command": "", 
+  "dev_command": "", 
+  "version": 1, 
+  "initialized_at": "2026-02-27T05:19:12Z"
+}

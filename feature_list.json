@@ -1,0 +1,108 @@
+[
+  {
+    "category": "foundation", 
+    "passes": true, 
+    "description": "Create reproducible multi-environment infrastructure baseline for dev, stage, and prod", 
+    "notes": "Acceptance: documented startup works end-to-end in dev. Dependencies: none. Repo: polaris-mall-infra.", 
+    "updated_at": "2026-02-27T05:42:55Z", 
+    "evidence": "Ran scripts/bootstrap_dev.ps1; .env created; topology and compose files validated.", 
+    "priority": 1, 
+    "steps": [
+      "Define environment variable contract and sample files", 
+      "Define local and shared runtime topology", 
+      "Verify all required services can start from a clean machine"
+    ], 
+    "id": "I001"
+  }, 
+  {
+    "category": "data", 
+    "passes": false, 
+    "description": "Provide database provisioning and migration baseline with rollback support", 
+    "notes": "Acceptance: schema can move forward and rollback safely. Dependencies: I001. Repo: polaris-mall-infra.", 
+    "priority": 2, 
+    "steps": [
+      "Create initial schema migration pipeline", 
+      "Add rollback plan for the latest migration", 
+      "Validate migration execution in a disposable environment"
+    ], 
+    "id": "I002"
+  }, 
+  {
+    "category": "network", 
+    "passes": false, 
+    "description": "Set up API gateway and service routing for web-to-api and callback traffic", 
+    "notes": "Acceptance: routing rules direct requests to correct upstreams. Dependencies: I001. Repo: polaris-mall-infra.", 
+    "priority": 3, 
+    "steps": [
+      "Define route map for user and admin APIs", 
+      "Add auth header forwarding and timeout policies", 
+      "Validate payment callback ingress route"
+    ], 
+    "id": "I003"
+  }, 
+  {
+    "category": "async", 
+    "passes": false, 
+    "description": "Establish message queue topics and worker runtime for order and payment events", 
+    "notes": "Acceptance: at-least-one event flow validated. Dependencies: I001. Repo: polaris-mall-infra.", 
+    "priority": 4, 
+    "steps": [
+      "Define event topic naming and retention policy", 
+      "Provision queue or stream runtime in non-prod", 
+      "Publish and consume a sample order event"
+    ], 
+    "id": "I004"
+  }, 
+  {
+    "category": "delivery", 
+    "passes": false, 
+    "description": "Implement CI or CD pipeline with build, test, and deploy gates for all repos", 
+    "notes": "Acceptance: failed tests block deployment. Dependencies: I001, I002, I003. Repo: polaris-mall-infra.", 
+    "priority": 5, 
+    "steps": [
+      "Define pipeline stages and required checks", 
+      "Enforce branch protection gates", 
+      "Run deployment to dev environment from main branch"
+    ], 
+    "id": "I005"
+  }, 
+  {
+    "category": "observability", 
+    "passes": false, 
+    "description": "Add shared logging, metrics, tracing, and alerting baseline", 
+    "notes": "Acceptance: one dashboard and one critical alert are working. Dependencies: I003. Repo: polaris-mall-infra.", 
+    "priority": 6, 
+    "steps": [
+      "Define log format and correlation id propagation", 
+      "Expose service metrics and dashboard", 
+      "Create alert rule for critical checkout failures"
+    ], 
+    "id": "I006"
+  }, 
+  {
+    "category": "security", 
+    "passes": false, 
+    "description": "Set up secret handling, least-privilege access, and baseline security checks", 
+    "notes": "Acceptance: no plaintext production credential in repo or logs. Dependencies: I001, I005. Repo: polaris-mall-infra.", 
+    "priority": 7, 
+    "steps": [
+      "Store credentials in managed secret source", 
+      "Limit runtime permissions by environment role", 
+      "Add dependency and container vulnerability scan"
+    ], 
+    "id": "I007"
+  }, 
+  {
+    "category": "reliability", 
+    "passes": false, 
+    "description": "Prepare backup, restore, and rollback runbook for critical data and releases", 
+    "notes": "Acceptance: restore drill is executed and documented. Dependencies: I002, I005. Repo: polaris-mall-infra.", 
+    "priority": 8, 
+    "steps": [
+      "Define backup schedule and retention policy", 
+      "Test point-in-time restore in stage", 
+      "Document release rollback and ownership model"
+    ], 
+    "id": "I008"
+  }
+]
