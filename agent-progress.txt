@@ -6,3 +6,7 @@
 - type: feature_pass
 - note: Marked I001 as passing. Evidence: Ran scripts/bootstrap_dev.ps1; .env created; topology and compose files validated.
 
+## 2026-02-27T08:51:34Z
+- type: feature_pass
+- note: Marked I002 as passing. Evidence: 已实现版本化迁移与最近一次回滚，执行 migrate_validate_dev.ps1 通过（迁移->回滚->重放）。
+

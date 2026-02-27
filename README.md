@@ -1,21 +1,37 @@
 # Polaris Mall Infra
 
+Language: English | [中文](README.zh-CN.md)
+
 `polaris-mall-infra` provides the infrastructure baseline for local and shared environments.
 
-## Implemented In This Step (I001)
+## Implemented In This Step
 
-- environment contract templates:
+- I001 baseline:
+  - environment contract templates:
   - `env/.env.dev.example`
   - `env/.env.stage.example`
   - `env/.env.prod.example`
-- local runtime topology:
+  - local runtime topology:
   - `docker-compose.dev.yml`
   - `gateway/nginx.dev.conf`
-- bootstrap scripts:
+  - bootstrap scripts:
   - `scripts/bootstrap_dev.ps1`
   - `scripts/bootstrap_dev.sh`
-- topology documentation:
+  - topology documentation:
   - `docs/topology.md`
+- I002 baseline:
+  - versioned migration pipeline:
+    - `scripts/migrate_dev.ps1`
+    - `scripts/migrate_dev.sh`
+  - rollback support for latest applied migration
+  - migration validation scripts:
+    - `scripts/migrate_validate_dev.ps1`
+    - `scripts/migrate_validate_dev.sh`
+  - schema files:
+    - `migrations/0001_initial.sql`
+    - `migrations/0002_fulfillment_audit.sql`
+    - `migrations/rollback/0001_initial.down.sql`
+    - `migrations/rollback/0002_fulfillment_audit.down.sql`
 
 ## Local Bootstrap
 
@@ -40,21 +56,29 @@ Gateway routes:
 - `/api/*` -> `http://host.docker.internal:9000`
 - `/` -> `http://host.docker.internal:5173`
 
-## Migration Baseline (I002 start)
+## Migration Baseline (I002)
 
 SQL files:
 
 - `migrations/0001_initial.sql`
+- `migrations/0002_fulfillment_audit.sql`
 - `migrations/rollback/0001_initial.down.sql`
+- `migrations/rollback/0002_fulfillment_audit.down.sql`
 
-Apply migration after infra containers are running:
+Apply all pending migrations after infra containers are running:
 
 ```powershell
 powershell -ExecutionPolicy Bypass -File ".\scripts\migrate_dev.ps1"
 ```
 
-Rollback:
+Rollback latest applied migration:
 
 ```powershell
 powershell -ExecutionPolicy Bypass -File ".\scripts\migrate_dev.ps1" -Rollback
+```
+
+Validate migration + rollback in disposable runtime:
+
+```powershell
+powershell -ExecutionPolicy Bypass -File ".\scripts\migrate_validate_dev.ps1"
 ```

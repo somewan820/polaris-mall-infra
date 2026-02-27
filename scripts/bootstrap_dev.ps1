@@ -20,7 +20,11 @@ $requiredFiles = @(
   (Join-Path $repoRoot 'gateway/nginx.dev.conf'),
   (Join-Path $repoRoot 'docs/topology.md'),
   (Join-Path $repoRoot 'migrations/0001_initial.sql'),
-  (Join-Path $repoRoot 'migrations/rollback/0001_initial.down.sql')
+  (Join-Path $repoRoot 'migrations/rollback/0001_initial.down.sql'),
+  (Join-Path $repoRoot 'migrations/0002_fulfillment_audit.sql'),
+  (Join-Path $repoRoot 'migrations/rollback/0002_fulfillment_audit.down.sql'),
+  (Join-Path $repoRoot 'scripts/migrate_dev.ps1'),
+  (Join-Path $repoRoot 'scripts/migrate_validate_dev.ps1')
 )
 
 foreach ($file in $requiredFiles) {

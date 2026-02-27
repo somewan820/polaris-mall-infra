@@ -36,7 +36,8 @@ This document defines the local runtime topology used during the first MVP build
 2. Start containers: `docker compose -f docker-compose.dev.yml --env-file .env up -d`
 3. Start API service (`polaris-mall-api`)
 4. Start Web static server (`polaris-mall-web`)
-5. Apply migration baseline (`scripts/migrate_dev.ps1` or `scripts/migrate_dev.sh`)
-6. Verify:
+5. Apply migration pipeline (`scripts/migrate_dev.ps1` or `scripts/migrate_dev.sh`)
+6. Run rollback validation (`scripts/migrate_validate_dev.ps1` or `scripts/migrate_validate_dev.sh`)
+7. Verify:
    - `GET /healthz` from API
    - open homepage through gateway

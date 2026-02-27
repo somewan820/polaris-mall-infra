@@ -22,7 +22,11 @@ for file in \
   "${repo_root}/gateway/nginx.dev.conf" \
   "${repo_root}/docs/topology.md" \
   "${repo_root}/migrations/0001_initial.sql" \
-  "${repo_root}/migrations/rollback/0001_initial.down.sql"
+  "${repo_root}/migrations/rollback/0001_initial.down.sql" \
+  "${repo_root}/migrations/0002_fulfillment_audit.sql" \
+  "${repo_root}/migrations/rollback/0002_fulfillment_audit.down.sql" \
+  "${repo_root}/scripts/migrate_dev.sh" \
+  "${repo_root}/scripts/migrate_validate_dev.sh"
 do
   if [[ ! -f "${file}" ]]; then
     echo "missing required file: ${file}" >&2
