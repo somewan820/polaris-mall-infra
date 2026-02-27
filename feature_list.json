@@ -25,9 +25,9 @@
       "Validate migration execution in a disposable environment"
     ],
     "passes": true,
-    "notes": "\u5305\u542b 0001/0002 \u8fc1\u79fb\u4e0e\u5bf9\u5e94 down \u6587\u4ef6\uff0c\u652f\u6301 schema_migrations \u8bb0\u5f55\u4e0e\u6700\u65b0\u7248\u672c\u56de\u9000\u3002",
     "evidence": "\u5df2\u5b9e\u73b0\u7248\u672c\u5316\u8fc1\u79fb\u4e0e\u6700\u8fd1\u4e00\u6b21\u56de\u6eda\uff0c\u6267\u884c migrate_validate_dev.ps1 \u901a\u8fc7\uff08\u8fc1\u79fb->\u56de\u6eda->\u91cd\u653e\uff09\u3002",
-    "updated_at": "2026-02-27T08:51:34Z"
+    "updated_at": "2026-02-27T08:51:34Z",
+    "notes": "\u5305\u542b 0001/0002 \u8fc1\u79fb\u4e0e\u5bf9\u5e94 down \u6587\u4ef6\uff0c\u652f\u6301 schema_migrations \u8bb0\u5f55\u4e0e\u6700\u65b0\u7248\u672c\u56de\u9000\u3002"
   },
   {
     "id": "I003",
@@ -39,8 +39,10 @@
       "Add auth header forwarding and timeout policies",
       "Validate payment callback ingress route"
     ],
-    "passes": false,
-    "notes": "Acceptance: routing rules direct requests to correct upstreams. Dependencies: I001. Repo: polaris-mall-infra."
+    "passes": true,
+    "notes": "\u652f\u4ed8\u56de\u8c03\u5165\u53e3\u9650\u5b9a POST\uff0cadmin \u8def\u7531\u4e0e\u4e1a\u52a1\u8def\u7531\u5206\u522b\u8bbe\u7f6e 15s/10s \u8d85\u65f6\uff0cWeb \u8def\u7531 8s\u3002",
+    "evidence": "\u7f51\u5173\u8def\u7531\u6309 admin/\u4e1a\u52a1 API/\u652f\u4ed8\u56de\u8c03\u62c6\u5206\u5e76\u5b8c\u6210\u9274\u6743\u5934\u4e0e\u8d85\u65f6\u7b56\u7565\uff1bnginx -t \u901a\u8fc7\uff0c\u56de\u8c03\u63a2\u6d4b\u7ed3\u679c POST=502(\u8f6c\u53d1\u547d\u4e2d)/GET=403(\u65b9\u6cd5\u53d7\u9650)\u3002",
+    "updated_at": "2026-02-27T09:10:56Z"
   },
   {
     "id": "I004",

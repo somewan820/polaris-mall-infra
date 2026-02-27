@@ -10,3 +10,7 @@
 - type: feature_pass
 - note: Marked I002 as passing. Evidence: 已实现版本化迁移与最近一次回滚，执行 migrate_validate_dev.ps1 通过（迁移->回滚->重放）。
 
+## 2026-02-27T09:10:56Z
+- type: feature_pass
+- note: Marked I003 as passing. Evidence: 网关路由按 admin/业务 API/支付回调拆分并完成鉴权头与超时策略；nginx -t 通过，回调探测结果 POST=502(转发命中)/GET=403(方法受限)。
+

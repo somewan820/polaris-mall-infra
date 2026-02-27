@@ -32,6 +32,11 @@
     - `migrations/0002_fulfillment_audit.sql`
     - `migrations/rollback/0001_initial.down.sql`
     - `migrations/rollback/0002_fulfillment_audit.down.sql`
+- I003 基线：
+  - 网关按 `admin`、`业务 API`、`支付回调`分流
+  - `/api/v1/*` 与 `/api/v1/admin/*` 转发 Authorization
+  - 支付回调入口：`POST /api/v1/payments/callback/mockpay`
+  - Web/API/回调流量按路由设置超时策略
 
 ## 本地初始化
 
@@ -53,7 +58,10 @@ docker compose -f .\docker-compose.dev.yml --env-file .\.env up -d
 
 网关路由：
 
-- `/api/*` -> `http://host.docker.internal:9000`
+- `/api/v1/admin/*` -> `http://host.docker.internal:9000`（转发 Authorization，`15s` 超时）
+- `/api/v1/payments/callback/mockpay` -> `http://host.docker.internal:9000`（仅 `POST`，`20s` 超时）
+- `/api/v1/*` -> `http://host.docker.internal:9000`（`10s` 超时）
+- `/api/*` -> `http://host.docker.internal:9000`（兜底）
 - `/` -> `http://host.docker.internal:5173`
 
 ## 迁移与回滚（I002）

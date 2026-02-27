@@ -16,8 +16,10 @@ This document defines the local runtime topology used during the first MVP build
 
 ## Request Paths
 
-- Browser -> `http://127.0.0.1:8080/` -> web
-- Browser -> `http://127.0.0.1:8080/api/*` -> api
+- Browser -> `http://127.0.0.1:8080/` -> web (`8s` read timeout)
+- Browser -> `http://127.0.0.1:8080/api/v1/*` -> api (`10s` read timeout)
+- Browser -> `http://127.0.0.1:8080/api/v1/admin/*` -> api (`15s` read timeout + Authorization forward)
+- Payment provider callback -> `http://127.0.0.1:8080/api/v1/payments/callback/mockpay` -> api (`POST only`, `20s` read timeout)
 
 ## Environment Contract
 

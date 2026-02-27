@@ -32,6 +32,11 @@ Language: English | [中文](README.zh-CN.md)
     - `migrations/0002_fulfillment_audit.sql`
     - `migrations/rollback/0001_initial.down.sql`
     - `migrations/rollback/0002_fulfillment_audit.down.sql`
+- I003 baseline:
+  - gateway route split for `admin`, `user api`, and `payment callback`
+  - Authorization forwarding for `/api/v1/*` and `/api/v1/admin/*`
+  - callback ingress rule: `POST /api/v1/payments/callback/mockpay`
+  - route-level timeout policies for web/api/callback traffic
 
 ## Local Bootstrap
 
@@ -53,7 +58,10 @@ docker compose -f .\docker-compose.dev.yml --env-file .\.env up -d
 
 Gateway routes:
 
-- `/api/*` -> `http://host.docker.internal:9000`
+- `/api/v1/admin/*` -> `http://host.docker.internal:9000` (Authorization forwarded, `15s` timeout)
+- `/api/v1/payments/callback/mockpay` -> `http://host.docker.internal:9000` (`POST` only, `20s` timeout)
+- `/api/v1/*` -> `http://host.docker.internal:9000` (`10s` timeout)
+- `/api/*` -> `http://host.docker.internal:9000` (fallback)
 - `/` -> `http://host.docker.internal:5173`
 
 ## Migration Baseline (I002)
